@@ -1,7 +1,7 @@
 import fs from "fs";
 
-const width = 30000;
-const height = 20000;
+const width = 300;
+const height = 200;
 
 let boundaries = {
     minX: -2,
@@ -64,7 +64,6 @@ for (let y = 0; y < height; y++) {
 let end = Date.now();
 let diff = end - start;
 console.log(diff / 1000.0);
-
 console.log(width * height / Math.pow(10,6));
 
 fs.closeSync(image);
