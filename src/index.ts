@@ -1,9 +1,6 @@
-import PPMImage from "./PPMImage";
+import PPMImage from "./ppmimage";
 import {timed} from "./utils";
 import {MandelbrotPoint} from "./points";
-
-// @mlesniak cli with fancy progress bar or so...
-
 
 class Mandelbrot {
     private readonly width: number;
@@ -45,5 +42,6 @@ class Mandelbrot {
     }
 }
 
+// @mlesniak cli with fancy progress bar or so...
 let mb = new Mandelbrot(320, 200, 50);
 mb.run();
