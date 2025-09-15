@@ -1,9 +1,10 @@
-import fs from "fs";
+import PPMImage from "./PPMImage";
+import {timer} from "./utils";
 
 // @mlesniak cli with fancy progress bar or so...
 
-const width = 100;
-const height = 73;
+const width = 30;
+const height = 20;
 
 let boundaries = {
     minX: -2,
@@ -15,39 +16,6 @@ let boundaries = {
 let stepX = (boundaries.maxX - boundaries.minX) / width;
 let stepY = (boundaries.maxY - boundaries.minY) / height;
 let maxIterations = 255;
-
-abstract class Image {
-    protected pixel: boolean[];
-    readonly width: number;
-    readonly height: number;
-
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
-        this.pixel = Array(width * height);
-        this.pixel.fill(false);
-    }
-
-    set(x: number, y: number) {
-        this.pixel[width * y + x] = true;
-    }
-
-    abstract write(filename: string): void;
-}
-
-class PPMImage extends Image {
-    write(filename: string) {
-        let image = fs.openSync(filename, "w");
-        fs.writeSync(image, `P1\n${width} ${height}\n`);
-
-        let pixels = this.pixel
-            .map(b => b === undefined ? 0 : b ? 1 : 0)
-        let p = pixels.join(" ");
-        fs.writeSync(image, p);
-        fs.writeSync(image, "\n");
-        fs.closeSync(image);
-    }
-}
 
 class Point {
     readonly x: number
@@ -74,25 +42,20 @@ class Point {
     }
 }
 
-let ppmImage: Image = new PPMImage(width, height);
+let ppmImage = new PPMImage(width, height);
 
-let start = Date.now();
-for (let y = 0; y < height; y++) {
-    console.log(y);
-    let yt = y * stepY + boundaries.minY;
-
-    for (let x = 0; x < width; x++) {
-        let xt = x * stepX + boundaries.minX;
-        let point = new Point(xt, yt);
-        if (point.isInMandelbrotSet()) {
-            ppmImage.set(x, y);
+timer(() => {
+    for (let y = 0; y < height; y++) {
+        console.log(y+1);
+        let yt = y * stepY + boundaries.minY;
+        for (let x = 0; x < width; x++) {
+            let xt = x * stepX + boundaries.minX;
+            let point = new Point(xt, yt);
+            if (point.isInMandelbrotSet()) {
+                ppmImage.set(x, y);
+            }
         }
     }
-}
+});
 
 ppmImage.write("output.ppm")
-
-let end = Date.now();
-let diff = end - start;
-console.log(diff / 1000.0);
-console.log(width * height / Math.pow(10, 6));
