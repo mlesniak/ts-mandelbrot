@@ -46,5 +46,15 @@ class Mandelbrot {
 }
 
 // @mlesniak cli with fancy progress bar or so...
-let mb = new Mandelbrot(320, 200, 50, "output.ppm");
+const args = process.argv.slice(2);
+console.log(args);
+
+let w = parseInt(args[0] || "300");
+let h = Math.round(w / 3.0 * 2.0);
+let iterations = parseInt(args[1] || "50");
+let filename = args[2] || "output.ppm";
+console.log({w, h, iterations, filename})
+
+
+let mb = new Mandelbrot(w, h, iterations, filename);
 mb.run();
