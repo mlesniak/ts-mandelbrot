@@ -1,4 +1,4 @@
-import Image from "./image";
+import Image from "./image.js"
 import fs from "fs";
 
 export default class PPMImage extends Image {

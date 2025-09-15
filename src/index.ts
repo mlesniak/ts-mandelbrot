@@ -1,11 +1,13 @@
-import PPMImage from "./ppmimage";
-import {timed} from "./utils";
-import {MandelbrotPoint} from "./points";
+#!/usr/bin/env node
+import PPMImage from "./ppmimage.js";
+import {timed} from "./utils.js";
+import {MandelbrotPoint} from "./points.js";
 
 class Mandelbrot {
     private readonly width: number;
     private readonly height: number;
     private readonly iterations: number;
+    private readonly filename: string;
 
     private readonly boundaries = {
         minX: -2,
@@ -14,15 +16,16 @@ class Mandelbrot {
         maxY: 1,
     }
 
-    constructor(width: number, height: number, iterations: number) {
+    constructor(width: number, height: number, iterations: number, filename: string) {
         this.width = width;
         this.height = height;
         this.iterations = iterations;
+        this.filename = filename;
     }
 
     @timed("mandelbrot execution")
     run() {
-        let ppmImage = new PPMImage(this.width, this.height);
+        let ppmImage = new PPMImage(this.width, this.height)
 
         let stepX = (this.boundaries.maxX - this.boundaries.minX) / this.width;
         let stepY = (this.boundaries.maxY - this.boundaries.minY) / this.height;
@@ -38,10 +41,10 @@ class Mandelbrot {
             }
         }
 
-        ppmImage.write("output.ppm")
+        ppmImage.write(this.filename);
     }
 }
 
 // @mlesniak cli with fancy progress bar or so...
-let mb = new Mandelbrot(320, 200, 50);
+let mb = new Mandelbrot(320, 200, 50, "output.ppm");
 mb.run();

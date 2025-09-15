@@ -7,14 +7,20 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "check": "tsc src/index.ts",
+    "build": "tsc",
+    "postbuild": "chmod a+x dist/index.js",
     "start": "tsx src/index.ts",
     "dev": "nodemon --exec tsx src/index.ts"
+  },
+  "bin": {
+    "mandelbrot": "dist/index.js"
+  },
+  "dependencies": {
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "tsx": "^4.20.5"
   }
 }
