@@ -1,5 +1,5 @@
 import PPMImage from "./PPMImage";
-import {timer} from "./utils";
+import {timed} from "./utils";
 
 // @mlesniak cli with fancy progress bar or so...
 
@@ -42,20 +42,27 @@ class Point {
     }
 }
 
-let ppmImage = new PPMImage(width, height);
 
-timer(() => {
-    for (let y = 0; y < height; y++) {
-        console.log(y+1);
-        let yt = y * stepY + boundaries.minY;
-        for (let x = 0; x < width; x++) {
-            let xt = x * stepX + boundaries.minX;
-            let point = new Point(xt, yt);
-            if (point.isInMandelbrotSet()) {
-                ppmImage.set(x, y);
+
+class Mandelbrot {
+    @timed("mandelbrot execution")
+    run() {
+        let ppmImage = new PPMImage(width, height);
+        for (let y = 0; y < height; y++) {
+            // console.log(y + 1);
+            let yt = y * stepY + boundaries.minY;
+            for (let x = 0; x < width; x++) {
+                let xt = x * stepX + boundaries.minX;
+                let point = new Point(xt, yt);
+                if (point.isInMandelbrotSet()) {
+                    ppmImage.set(x, y);
+                }
             }
         }
+        ppmImage.write("output.ppm")
     }
-});
 
-ppmImage.write("output.ppm")
+}
+
+let mb = new Mandelbrot();
+mb.run();
