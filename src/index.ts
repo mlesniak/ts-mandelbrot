@@ -5,6 +5,7 @@ import {MandelbrotPoint} from "./points.js";
 import cliProgress from 'cli-progress';
 import commandLineArgs from 'command-line-args';
 
+// @mlesniak move out
 class Mandelbrot {
     private readonly width: number;
     private readonly height: number;
