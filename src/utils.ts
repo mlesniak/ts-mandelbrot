@@ -17,6 +17,7 @@ export function timed(label?: string): MethodDecorator {
             const end = Date.now();
             const diff = end - start;
 
+            // @mlesniak only show if environment variable is set.
             console.log(`${label ?? String(key)}: ${diff / 1000.0}`)
             return result;
         }
