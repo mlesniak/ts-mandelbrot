@@ -3,6 +3,7 @@ import PPMImage from "./ppmimage.js";
 import {timed} from "./utils.js";
 import {MandelbrotPoint} from "./points.js";
 import cliProgress from 'cli-progress';
+import commandLineArgs from 'command-line-args';
 
 class Mandelbrot {
     private readonly width: number;
@@ -49,12 +50,17 @@ class Mandelbrot {
     }
 }
 
-// // @mlesniak cli parsing with library
-const args = process.argv.slice(2);
-let w = parseInt(args[0] || "10000");
-let h = Math.round(w / 3.0 * 2.0);
-let iterations = parseInt(args[1] || "50");
-let filename = args[2] || "output.ppm";
+// @mlesniak --help support
+const optionDefinition = [
+    {name: 'width', alias: 'w', type: Number, defaultValue: 300},
+    {name: 'iterations', alias: 'i', type: Number, defaultValue: 100},
+    {name: 'filename', alias: 'f', type: String, defaultValue: 'output.ppm'}
+];
+const option = commandLineArgs(optionDefinition);
+let w = option.width;
+let h = Math.round(option.width / 3.0 * 2.0);
+let iterations = option.iterations;
+let filename = option.filename;
 
 let mb = new Mandelbrot(w, h, iterations, filename);
 mb.run();

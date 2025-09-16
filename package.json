@@ -16,10 +16,12 @@
     "mandelbrot": "dist/index.js"
   },
   "dependencies": {
-    "cli-progress": "^3.12.0"
+    "cli-progress": "^3.12.0",
+    "command-line-args": "^6.0.1"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.11.6",
+    "@types/command-line-args": "^5.2.3",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
