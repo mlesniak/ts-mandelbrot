@@ -2,8 +2,8 @@
   "name": "ts-playground",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
-  "author": "",
+  "license": "Apache-2.0",
+  "author": "Michael Lesniak",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
