@@ -21,6 +21,10 @@ A small TypeScript + npm playground — just a space to hack on ideas and try th
 - Use the binary: `mandelbrot --help`
 - Unlink when done: `npm unlink -g ts-playground && npm unlink`
 
+**Sample Output**
+- A pre-generated example is included as `mandelbrot.ppm` in the repo.
+- View with an image app that supports PPM (e.g., Preview, IrfanView) or convert to PNG: `magick convert mandelbrot.ppm mandelbrot.png`.
+
 **Notes**
 - The CLI entrypoint is exposed as `mandelbrot` via the `bin` field and points to `dist/index.js`.
 - `postbuild` marks `dist/index.js` as executable.
