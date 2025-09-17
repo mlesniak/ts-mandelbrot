@@ -2,6 +2,8 @@
 
 A small TypeScript + npm playground — just a space to hack on ideas and try things out. Nothing serious or production‑grade.
 
+![Mandelbrot Preview](./mandelbrot.png)
+
 **Requirements**
 - Node.js 18+ and `npm`
 
